@@ -7,13 +7,14 @@ pipeline {
     stages {
 
         stage('Build') {
-            steps
+            steps {
                 sh 'mvn clean install'
                 sh 'docker stop contenedor || echo "no hay contenedor para detener"'
                 sh 'docker rm contenedor || echo "no hay contenedor para remover"'
                 sh 'docker build -t registrycicd:8085/${JOB_NAME}:v${BUILD_NUMBER}'
             }
-
+        }
+        
         stage('Test') {
             steps {
                 echo 'Ingresa en la pagina y prueba tu mismo'
