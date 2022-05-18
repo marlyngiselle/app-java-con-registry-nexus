@@ -1,4 +1,5 @@
 pipeline {
+
     agent { label 'agente1' }
 
     tools { maven "supermaven" }
@@ -12,7 +13,6 @@ pipeline {
                 sh 'docker rm contenedor || echo "no hay contenedor para remover"'
                 sh 'docker build -t registrycicd:8085/${JOB_NAME}:v${BUILD_NUMBER}'
             }
-        }
 
         stage('Test') {
             steps {
@@ -36,6 +36,5 @@ pipeline {
                 sh 'docker run -d -p 80:8080 --name contenedor registrycicd:8085/${JOB_NAME}:latest'
             }
         }
-
     }
-}
+ }
